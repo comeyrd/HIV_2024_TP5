@@ -6,6 +6,10 @@ test_dir = "./tests/test_"
 
 model = None
 
+def load_key():
+    with open("key.secret") as file:
+        return file.read()
+
 def header_prompt(fn):
     prompt = f"""Generate a unittest for the function {fn}
 Try to achieve 100 percent coverage
@@ -42,7 +46,7 @@ def generate_full_prompt(fun):
     return prompt
 
 def setup_gemini():
-    key = "AIzaSyB_JowL8AkPUUL_wOWlvUEb3xbUW9Ma0HA"
+    key = load_key()
     genai.configure(api_key=key)
     global model
     model = genai.GenerativeModel('models/gemini-2.0-flash')
